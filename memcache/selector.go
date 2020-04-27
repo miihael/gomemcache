@@ -17,10 +17,11 @@ limitations under the License.
 package memcache
 
 import (
-	"hash/crc32"
 	"net"
 	"strings"
 	"sync"
+
+	"github.com/mtchavez/jenkins"
 )
 
 // ServerSelector is the interface that selects a memcache server
@@ -102,7 +103,7 @@ func (ss *ServerList) Each(f func(net.Addr) error) error {
 }
 
 // keyBufPool returns []byte buffers for use by PickServer's call to
-// crc32.ChecksumIEEE to avoid allocations. (but doesn't avoid the
+// to avoid allocations. (but doesn't avoid the
 // copies, which at least are bounded in size and small)
 var keyBufPool = sync.Pool{
 	New: func() interface{} {
@@ -122,7 +123,9 @@ func (ss *ServerList) PickServer(key string) (net.Addr, error) {
 	}
 	bufp := keyBufPool.Get().(*[]byte)
 	n := copy(*bufp, key)
-	cs := crc32.ChecksumIEEE((*bufp)[:n])
+	j := jenkins.New()
+	j.Write((*bufp)[:n])
+	cs := j.Sum32()
 	keyBufPool.Put(bufp)
 
 	return ss.addrs[cs%uint32(len(ss.addrs))], nil

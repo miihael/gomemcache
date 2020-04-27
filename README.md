@@ -2,21 +2,22 @@
 
 This is a memcache client library for the Go programming language
 (http://golang.org/).
+This fork uses different server selection algorithm - Jenkins Hash, libmemcached 1.0 default.
 
 ## Installing
 
 ### Using *go get*
 
-    $ go get github.com/bradfitz/gomemcache/memcache
+    $ go get github.com/miihael/gomemcache/memcache
 
 After this command *gomemcache* is ready to use. Its source will be in:
 
-    $GOPATH/src/github.com/bradfitz/gomemcache/memcache
+    $GOPATH/src/github.com/miihael/gomemcache/memcache
 
 ## Example
 
     import (
-            "github.com/bradfitz/gomemcache/memcache"
+            "github.com/miihael/gomemcache/memcache"
     )
 
     func main() {
@@ -29,9 +30,9 @@ After this command *gomemcache* is ready to use. Its source will be in:
 
 ## Full docs, see:
 
-See https://godoc.org/github.com/bradfitz/gomemcache/memcache
+See https://godoc.org/github.com/miihael/gomemcache/memcache
 
 Or run:
 
-    $ godoc github.com/bradfitz/gomemcache/memcache
+    $ godoc github.com/miihael/gomemcache/memcache
 
